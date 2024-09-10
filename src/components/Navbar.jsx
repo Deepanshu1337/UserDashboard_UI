@@ -17,7 +17,7 @@ const Navbar = () => {
           <Link to="/" ><img className="w-16 h-5 " src={FireAiLogo} alt="Fire Ai" /></Link>
         </div>
 
-        {/* Hamburger Button - Hidden when menu is open */}
+      
         {!isMenuOpen && (
           <div
             className="text-3xl text-white cursor-pointer md:hidden"
@@ -46,7 +46,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Mobile Menu with Transition */}
+ 
       <div
         className={`fixed inset-0 text-center bg-gray-800 bg-opacity-75 z-50 transition-transform duration-300 ease-in-out ${isMenuOpen ? 'transform translate-x-0' : 'transform translate-x-full'} md:hidden`}
         style={{ pointerEvents: isMenuOpen ? 'auto' : 'none' }}

@@ -73,16 +73,20 @@ const UserTable = ({ isAnalyticalPage }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddingUser, setIsAddingUser] = useState(false);
 
+
+  // function for selecting current user
   const handleUserSelect = (user) => {
     setSelectedUser(user);
     setIsAddingUser(false);
   };
 
+  // function for genrating new user with uuid
   const handleAddUser = () => {
     setSelectedUser({ id: uuidv4(), name: "", email: "", status: "Active" });
     setIsAddingUser(true);
   };
 
+  // function for adding new user or updating new user
   const handleSaveUser = (updatedUser) => {
     setTimeout(() => {
       if (isAddingUser) {
@@ -108,11 +112,14 @@ const UserTable = ({ isAnalyticalPage }) => {
     }, 300);
   };
 
+
+  // function for handling cancel button
   const handleCancelEdit = () => {
     setSelectedUser(null);
     setIsAddingUser(false);
   };
 
+  // function for handling user deletion
   const handleDeleteUser = (userId) => {
     setTimeout(() => {
       const updatedUsers = users.filter((user) => user.id !== userId);
@@ -121,6 +128,7 @@ const UserTable = ({ isAnalyticalPage }) => {
     }, 300);
   };
 
+  // function for implimention dynamic search 
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
