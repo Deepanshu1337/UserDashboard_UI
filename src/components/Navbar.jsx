@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { BiAlignLeft, BiX } from "react-icons/bi";
+import FireAiLogo from "../asset/logo.png"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,7 +14,7 @@ const Navbar = () => {
     <nav className="bg-gray-800 py-4 px-8">
       <div className="flex items-center justify-between">
         <div className="text-white text-2xl font-bold">
-          <Link to="/">Logo</Link>
+          <Link to="/" ><img className="w-16 h-5 " src={FireAiLogo} alt="Fire Ai" /></Link>
         </div>
 
         {/* Hamburger Button - Hidden when menu is open */}

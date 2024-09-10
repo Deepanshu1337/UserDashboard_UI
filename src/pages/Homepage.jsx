@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import FireAi from '../asset/OIG2.jpg'
 
 const Homepage = () => {
   return (
-    <div className="min-h-screen flex flex-col md:flex-row justify-between items-center p-8 md:p-16 bg-gray-100">
+    <div className="min-h-screen flex flex-col-reverse md:flex-row justify-between items-center p-8 md:p-16 bg-gray-100">
       <div className="md:w-1/2 mb-8 md:mb-0">
         <motion.h1
           initial={{ x: -100, opacity: 0 }}
@@ -35,8 +36,8 @@ const Homepage = () => {
           </Link>
         </motion.div>
       </div>
-      <div className="md:w-1/2 flex justify-center">
-        <img src="/path/to/your/logo.png" alt="Fire AI Logo" className="w-64 h-64" />
+      <div className="md:w-1/2 md:h-full flex justify-center">
+        <img  src={FireAi} alt="Fire AI Logo" className="w-[500px] h-[500px] rounded-md shadow-lg" />
       </div>
     </div>
   );

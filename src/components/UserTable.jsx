@@ -1,19 +1,77 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import EditUserModal from "../components/EditUserModal";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const initialUsers = [
+  {
+    id: "1e8b6c40-8e60-4a6b-bae4-45e379c09f5a",
+    name: "Alice Johnson",
+    email: "alice.johnson@example.com",
+    status: "Active",
+  },
+  {
+    id: "2f8d6e61-3b20-4c3d-97a1-4b5e6d726f2b",
+    name: "Bob Smith",
+    email: "bob.smith@example.com",
+    status: "Inactive",
+  },
+  {
+    id: "3g9e7f72-9c30-4d4e-a7b1-56c7d8e81b2c",
+    name: "Charlie Brown",
+    email: "charlie.brown@example.com",
+    status: "Active",
+  },
+  {
+    id: "4h0f8g83-0d40-4e5f-8b2a-67d8e9f92c3d",
+    name: "David Wilson",
+    email: "david.wilson@example.com",
+    status: "Active",
+  },
+  {
+    id: "5i1g9h94-1e50-4f6a-9c3b-78e9f0g03d4e",
+    name: "Eva Adams",
+    email: "eva.adams@example.com",
+    status: "Inactive",
+  },
+  {
+    id: "6j2h0k05-2f60-4g7b-a4c4-89f0g1h14e5f",
+    name: "Frank Miller",
+    email: "frank.miller@example.com",
+    status: "Active",
+  },
+  {
+    id: "7k3i1l16-3g70-4h8c-b5d5-90g1h2i25f6g",
+    name: "Grace Lee",
+    email: "grace.lee@example.com",
+    status: "Inactive",
+  },
+  {
+    id: "8l4j2m27-4h80-5i9d-c6e6-01h2i3j36g7h",
+    name: "Henry Walker",
+    email: "henry.walker@example.com",
+    status: "Active",
+  },
+  {
+    id: "9m5k3n38-5i90-6j0e-d7f7-12i3j4k47h8i",
+    name: "Isabella Harris",
+    email: "isabella.harris@example.com",
+    status: "Inactive",
+  },
+  {
+    id: "0n6l4o49-6j00-7k1f-e8g8-23j4k5l58i9j",
+    name: "James Clark",
+    email: "james.clark@example.com",
+    status: "Active",
+  },
+];
+
 const UserTable = ({ isAnalyticalPage }) => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(initialUsers);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddingUser, setIsAddingUser] = useState(false);
-
-  useEffect(() => {
-    const savedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    setUsers(savedUsers);
-  }, []);
 
   const handleUserSelect = (user) => {
     setSelectedUser(user);
@@ -31,7 +89,6 @@ const UserTable = ({ isAnalyticalPage }) => {
         const newUser = { ...updatedUser, id: uuidv4() };
         const userList = [...users, newUser];
         setUsers(userList);
-        localStorage.setItem("users", JSON.stringify(userList));
         toast.success(
           `Added: ${newUser.name}, ${newUser.email}, ${newUser.status}`,
           { autoClose: 2000 }
@@ -41,7 +98,6 @@ const UserTable = ({ isAnalyticalPage }) => {
           user.id === selectedUser.id ? { ...user, ...updatedUser } : user
         );
         setUsers(userList);
-        localStorage.setItem("users", JSON.stringify(userList));
         toast.success(
           `Updated: ${updatedUser.name}, ${updatedUser.email}, ${updatedUser.status}`,
           { autoClose: 2000 }
@@ -61,7 +117,6 @@ const UserTable = ({ isAnalyticalPage }) => {
     setTimeout(() => {
       const updatedUsers = users.filter((user) => user.id !== userId);
       setUsers(updatedUsers);
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
       toast.success("User deleted successfully", { autoClose: 2000 });
     }, 300);
   };
@@ -91,7 +146,7 @@ const UserTable = ({ isAnalyticalPage }) => {
         {!isAnalyticalPage && (
           <button
             onClick={handleAddUser}
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 sm:py-2 px-3 sm:px-4 rounded text-xs sm:text-sm focus:outline-none focus:shadow-outline"
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 sm:py-2 px-2 sm:px-4 rounded text-xs sm:text-sm focus:outline-none focus:shadow-outline"
           >
             Add User
           </button>
@@ -102,14 +157,14 @@ const UserTable = ({ isAnalyticalPage }) => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="bg-gray-200">
-              <th className="py-3 px-4 border-b text-left">S. No.</th>
-              <th className="py-3 px-4 border-b text-left">User Name</th>
-              <th className="hidden md:inline-flex py-3 px-4 border-b text-left">User Email</th>
-              <th className="py-3 px-4 border-b text-left">Status</th>
+              <th className="py-2 px-3 border-b text-left text-xs sm:text-sm">S. No.</th>
+              <th className="py-2 px-3 border-b text-left text-xs sm:text-sm">User Name</th>
+              <th className="py-2 px-3 border-b text-left text-xs sm:text-sm max-w-[200px] whitespace-normal overflow-hidden text-ellipsis">User Email</th>
+              <th className="py-2 px-3 border-b text-left text-xs sm:text-sm">Status</th>
               {!isAnalyticalPage && (
                 <>
-                  <th className="py-3 px-2 border-b text-left">Edit</th>
-                  <th className="py-3 px-2 border-b text-left">Delete</th>
+                  <th className="py-2 px-3 border-b text-left text-xs sm:text-sm">Edit</th>
+                  <th className="py-2 px-3 border-b text-left text-xs sm:text-sm">Delete</th>
                 </>
               )}
             </tr>
@@ -117,12 +172,12 @@ const UserTable = ({ isAnalyticalPage }) => {
           <tbody>
             {filteredUsers.map((user, index) => (
               <tr key={user.id} className="border-b hover:bg-gray-100">
-                <td className="py-3 px-4 text-left">{index + 1}</td>
-                <td className="py-3 px-4 text-left">{user.name}</td>
-                <td className="hidden md:table-cell py-3 px-4 text-left">{user.email}</td>
-                <td className="py-3 px-4 text-left">
+                <td className="py-2 px-3 text-left text-xs sm:text-sm">{index + 1}</td>
+                <td className="py-2 px-3 text-left text-xs sm:text-sm">{user.name}</td>
+                <td className="py-2 px-3 text-left text-xs sm:text-sm max-w-[200px] whitespace-normal overflow-hidden text-ellipsis">{user.email}</td>
+                <td className="py-2 px-3 text-left text-xs sm:text-sm">
                   <div
-                    className={`inline-block px-2 py-1 rounded-full text-sm font-semibold ${
+                    className={`inline-block px-2 py-1 rounded-full text-xs sm:text-sm font-semibold ${
                       user.status === "Active"
                         ? "bg-green-200 text-green-800"
                         : "bg-red-200 text-red-800"
@@ -131,10 +186,9 @@ const UserTable = ({ isAnalyticalPage }) => {
                     {user.status}
                   </div>
                 </td>
-               
                 {!isAnalyticalPage && (
                   <>
-                    <td className="py-3 px-2 text-left">
+                    <td className="py-2 px-2 text-left">
                       <button
                         onClick={() => handleUserSelect(user)}
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs sm:text-sm focus:outline-none focus:shadow-outline"
@@ -142,7 +196,7 @@ const UserTable = ({ isAnalyticalPage }) => {
                         Edit
                       </button>
                     </td>
-                    <td className="py-3 px-2 text-left">
+                    <td className="py-2 px-2 text-left">
                       <button
                         onClick={() => handleDeleteUser(user.id)}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded text-xs sm:text-sm focus:outline-none focus:shadow-outline"
